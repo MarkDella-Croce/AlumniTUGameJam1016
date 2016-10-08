@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elixir.CSharp.Plugins", "Elixir.CSharp.Plugins.csproj", "{172EA59E-1C77-9206-8418-142E2B47DECA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elixir.CSharp", "Elixir.CSharp.csproj", "{6FDA7CC6-F76F-26BB-51E6-89412E482228}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elixir.CSharp.Editor", "Elixir.CSharp.Editor.csproj", "{A69616AC-FDA1-5F05-6208-1AFE7E1BC71C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{172EA59E-1C77-9206-8418-142E2B47DECA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{172EA59E-1C77-9206-8418-142E2B47DECA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{172EA59E-1C77-9206-8418-142E2B47DECA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{172EA59E-1C77-9206-8418-142E2B47DECA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FDA7CC6-F76F-26BB-51E6-89412E482228}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FDA7CC6-F76F-26BB-51E6-89412E482228}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FDA7CC6-F76F-26BB-51E6-89412E482228}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FDA7CC6-F76F-26BB-51E6-89412E482228}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A69616AC-FDA1-5F05-6208-1AFE7E1BC71C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A69616AC-FDA1-5F05-6208-1AFE7E1BC71C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A69616AC-FDA1-5F05-6208-1AFE7E1BC71C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A69616AC-FDA1-5F05-6208-1AFE7E1BC71C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
