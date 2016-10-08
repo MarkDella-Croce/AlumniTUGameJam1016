@@ -9,7 +9,7 @@ public class MixSlot : MonoBehaviour {
     [SerializeField]
     private bool isActive;
        
-    public Reagent currentReagent;
+    public Reagent currentReagent = new Reagent();
 
     private MeshRenderer renderer;
 
@@ -25,13 +25,7 @@ public class MixSlot : MonoBehaviour {
     // Use this for initialization
     void Start () {
         renderer = this.GetComponent<MeshRenderer>();
-        if (renderer.material.color != Color.clear) {
-            currentReagent = new Reagent();
-            currentReagent.color = renderer.material.color;
-            currentReagent.slotNames.Add(Random.Range(1, 99).ToString());
-            currentReagent.slotNames.Add(Random.Range(1, 99).ToString());
-            currentReagent.slotNames.Add(Random.Range(1, 99).ToString());
-        } else {
+        if (renderer.material.color == Color.clear) {                    
             currentReagent = null;
         }
     }
@@ -58,7 +52,10 @@ public class MixSlot : MonoBehaviour {
             isActive = false;
             ActiveSlot.enabled = false;
             AlchemistCharacter pc = other.gameObject.GetComponent<AlchemistCharacter>();
-            pc.currentActiveContainer = null;
+            if (pc.currentActiveContainer == this) {
+                pc.currentActiveContainer = null;
+            }
+            
         }
     }
 

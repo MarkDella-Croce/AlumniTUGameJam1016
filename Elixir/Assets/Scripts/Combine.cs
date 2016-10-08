@@ -40,6 +40,7 @@ public class Combine : MonoBehaviour {
         mixedReagent.slotNames.Add(mixedName);
         Debug.Log("Final Color: " + mixedColor);
         mixedReagent.color = mixedColor;
+        mixedReagent.isMixed = true;
         return mixedReagent;
     }
 

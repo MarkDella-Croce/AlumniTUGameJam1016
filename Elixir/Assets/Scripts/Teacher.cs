@@ -9,7 +9,7 @@ public class Teacher : MonoBehaviour {
     public float totalTime;
     public float totalGradeTime;
 
-    public string[] testQuestions;
+    public List<string> testQuestions = new List<string>();
 
     public string currentQuestion;
 
@@ -36,13 +36,19 @@ public class Teacher : MonoBehaviour {
     [SerializeField]
     private float gradeTimerLeft;
 
+    public List<GameObject> reagentSlots;
+
+    [SerializeField]
+    private GameObject firePrefab;
+    
+
 
     // Use this for initialization
     void Start () {
-	    if (testQuestions.Length > 0) {
+	    if (testQuestions.Count > 0) {
             currentQuestionNumber = 0;
             currentQuestion = testQuestions[currentQuestionNumber];
-            questionUI.text = currentQuestion;
+            questionUI.text = "<i>" + currentQuestion + "</i>";
         } else {
             Debug.Log("Need at least one question!");
         }
@@ -73,26 +79,61 @@ public class Teacher : MonoBehaviour {
 
 	}
 
-    public void Grade (Reagent submission) {
-        submissionUI.text = submission.slotNames[0];
-        if (submission.slotNames[0] == currentQuestion) {
-            gradeUI.enabled = true;
-            gradeUI.text = "CORRECT!";
-            gradeUI.color = Color.green;
-            if (currentQuestionNumber >= testQuestions.Length - 1) {
-                testResultUI.enabled = true;
-                testResultUI.text = "YOU PASSED!";
-                testResultUI.color = Color.green;
+    public void Grade (Reagent submission) {        
+        if (submission.isMixed) {
+            submissionUI.text = submission.slotNames[0];
+            if (submission.slotNames[0] == currentQuestion) {
+                gradeUI.enabled = true;
+                gradeUI.text = "CORRECT!";
+                gradeUI.color = Color.green;
+                if (currentQuestionNumber >= testQuestions.Count - 1) {
+                    testResultUI.enabled = true;
+                    testResultUI.text = "YOU PASSED!";
+                    testResultUI.color = Color.green;
+                } else {
+                    currentQuestionNumber++;
+                    currentQuestion = testQuestions[currentQuestionNumber];
+                    questionUI.text = "<i>" + currentQuestion + "</i>";
+                }
             } else {
-                currentQuestionNumber++;
-                currentQuestion = testQuestions[currentQuestionNumber];
+                gradeUI.enabled = true;
+                gradeUI.text = "INCORRECT!";
+                gradeUI.color = Color.red;
+                BadThings();
             }
+            gradeTimerLeft = totalGradeTime;
         } else {
             gradeUI.enabled = true;
-            gradeUI.text = "INCORRECT!";
+            gradeUI.text = "MIX SOMETHING!";
             gradeUI.color = Color.red;
-            //Trigger Bad Things here
+            BadThings();
+            foreach (GameObject slot in reagentSlots) {
+                MixSlot mixSlot = slot.GetComponent<MixSlot>();
+                if (mixSlot.currentReagent == null) {
+                    mixSlot.changeReagent(submission);
+                    break;
+                }
+            }
         }
-        gradeTimerLeft = totalGradeTime;
+         
+    }
+
+    public void BadThings() {        
+        int badThingNumber = Random.Range(1, 4);
+        switch (badThingNumber) {
+            case 1:
+                //Generate Random Fires
+
+                break;
+            case 2:
+                //Start ReAgents Moving Randomly
+                break;
+            case 3:
+                //Explode on Player (stuns player)
+                break;
+            default:
+                Debug.Log("Undefined Bad Thing!");
+                break;
+        }
     }
 }
