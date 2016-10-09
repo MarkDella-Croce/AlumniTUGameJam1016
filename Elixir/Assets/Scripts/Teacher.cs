@@ -79,6 +79,13 @@ public class Teacher : MonoBehaviour {
     [SerializeField]
     private Animator teacherSprite;
 
+    [SerializeField]
+    private GameObject MainMenuButton;
+
+    [SerializeField]
+    private GameObject RestartGameButton;
+
+
     // Use this for initialization
     void Start () {
         levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
@@ -87,6 +94,7 @@ public class Teacher : MonoBehaviour {
     }
 
     void SetupLevel() {
+
         if (testQuestions.Count > 0) {
             currentQuestionNumber = 0;
             currentQuestion = testQuestions[currentQuestionNumber];
@@ -100,6 +108,19 @@ public class Teacher : MonoBehaviour {
         foreach (GameObject fire in activeFires) {
             Destroy(fire);
         }
+
+    }
+
+    public void MainMenu () {
+        Application.LoadLevel("Welcome_Screen");
+    }
+
+    public void RestartGame() {
+        testResultUI.enabled = false;
+        MainMenuButton.SetActive(false);
+        RestartGameButton.SetActive(false);
+        levelManager.ResetLevel();
+        SetupLevel();
     }
 	
 	// Update is called once per frame
@@ -112,7 +133,7 @@ public class Teacher : MonoBehaviour {
                 testResultUI.enabled = true;
                 testResultUI.text = "YOU FAILED!";
                 testResultUI.color = Color.red;
-                restartGameTimeLeft = restartGameTotalTime;
+                restartGameTimeLeft = restartGameTotalTime;                
                 ;
             } else {
                 timerUI.text = timeLeft.ToString("00.00");
@@ -128,11 +149,11 @@ public class Teacher : MonoBehaviour {
         if (restartGameTimeLeft > 0) {
             restartGameTimeLeft -= Time.deltaTime;
             if (restartGameTimeLeft <= 0f) {
-                restartGameTimeLeft = 0;
-                testResultUI.enabled = false;
+                restartGameTimeLeft = 0;                
                 gradeUI.enabled = false;
-                levelManager.ResetLevel();
-                SetupLevel();
+                Time.timeScale = 0f;
+                MainMenuButton.SetActive(true);
+                RestartGameButton.SetActive(true);
             }
         }
         if(dizzyTimeLeft > 0) {
