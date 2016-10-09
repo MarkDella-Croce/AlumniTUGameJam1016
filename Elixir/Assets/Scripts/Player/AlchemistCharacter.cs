@@ -17,16 +17,17 @@ public class AlchemistCharacter : MonoBehaviour {
     //Carry Slots
     [SerializeField]
     private List<CarrySlot> carrySlots = new List<CarrySlot>();
-
-
     
+    public Transform StartPosition;
+
+    public bool isOnFire = false;
+    public bool isDizzy = false;
 
     // Use this for initialization
     void Start() {
         GameObject[] slots = GameObject.FindGameObjectsWithTag("UICarrySlot");
         Array.Sort(slots, new GameObjectComparer());
         foreach(GameObject slot in slots) {
-            Debug.Log("Name: " + slot.name);
             if (slot.activeInHierarchy == true) {                
                 CarrySlot carrySlot = new CarrySlot();
                 carrySlot.carrySlotUI = slot.GetComponent<Image>();
@@ -63,6 +64,13 @@ public class AlchemistCharacter : MonoBehaviour {
     public void Submit() {
         if (currentActiveContainer != null) {
             currentActiveContainer.Submit();
+        }
+    }
+
+    public void ResetPlayer() {
+        foreach (CarrySlot carrySlot in carrySlots) {
+            carrySlot.changeReagent(null);
+            transform.position = StartPosition.position;
         }
     }
 }

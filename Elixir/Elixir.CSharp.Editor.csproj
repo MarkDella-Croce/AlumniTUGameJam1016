@@ -119,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\PBS Materials Variety Pack\readme.txt" />
+    <None Include="Assets\Particle Ribbon\readme_Simple_Particle_Ribbon.txt" />
     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
