@@ -13,6 +13,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private Vector3 m_Move;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
 
+        private Animator spriteBoy;
         
         private void Start()
         {
@@ -30,6 +31,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
             // get the third person character ( this should never be null due to require component )
             m_Character = GetComponent<ThirdPersonCharacter>();
+            GameObject sb = transform.FindChild("SpriteBoy").gameObject;
+            spriteBoy = sb.GetComponent<Animator>();
         }
 
 

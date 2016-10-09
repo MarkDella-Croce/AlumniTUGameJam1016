@@ -55,7 +55,7 @@ public class Teacher : MonoBehaviour {
     private GameObject dizzyPrefab;
 
     [SerializeField]
-    private List<GameObject> activeFires;
+    private List<GameObject> activeFires = new List<GameObject>();
 
     float fireTimeLeft;    
     float totalFireTime;
@@ -76,6 +76,9 @@ public class Teacher : MonoBehaviour {
     GameObject fireEffect;
     GameObject dizzyEffect;
 
+    [SerializeField]
+    private Animator teacherSprite;
+
     // Use this for initialization
     void Start () {
         levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
@@ -94,6 +97,9 @@ public class Teacher : MonoBehaviour {
         timeLeft = totalTime;
         testResultUI.enabled = false;
         gradeUI.enabled = false;
+        foreach (GameObject fire in activeFires) {
+            Destroy(fire);
+        }
     }
 	
 	// Update is called once per frame
@@ -116,7 +122,7 @@ public class Teacher : MonoBehaviour {
             gradeTimerLeft -= Time.deltaTime;
             if (gradeTimerLeft <= 0f) {
                 gradeTimerLeft = 0;
-                gradeUI.enabled = false;
+                gradeUI.enabled = false;                
             }
         }
         if (restartGameTimeLeft > 0) {
@@ -157,6 +163,7 @@ public class Teacher : MonoBehaviour {
                 gradeUI.enabled = true;
                 gradeUI.text = "CORRECT!";
                 gradeUI.color = Color.green;
+                teacherSprite.SetTrigger("correct");                
                 if (currentQuestionNumber >= testQuestions.Count - 1) {
                     testResultUI.enabled = true;
                     testResultUI.text = "YOU PASSED!";
@@ -171,6 +178,7 @@ public class Teacher : MonoBehaviour {
                 gradeUI.enabled = true;
                 gradeUI.text = "INCORRECT!";
                 gradeUI.color = Color.red;
+                teacherSprite.SetTrigger("incorrect");                
                 BadThings();
             }
             gradeTimerLeft = totalGradeTime;
@@ -178,6 +186,7 @@ public class Teacher : MonoBehaviour {
             gradeUI.enabled = true;
             gradeUI.text = "MIX SOMETHING!";
             gradeUI.color = Color.red;
+            teacherSprite.SetTrigger("incorrect");
             BadThings();
             foreach (GameObject slot in reagentSlots) {
                 MixSlot mixSlot = slot.GetComponent<MixSlot>();

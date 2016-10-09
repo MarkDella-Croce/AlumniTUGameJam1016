@@ -12,7 +12,7 @@ public class AlchemistUserControl : MonoBehaviour {
     private Vector3 m_CamForward;             // The current forward direction of the camera
     private Vector3 m_Move;
     private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
-
+    private Animator spriteBoy;
 
     private void Start() {
         // get the transform of the main camera
@@ -27,7 +27,8 @@ public class AlchemistUserControl : MonoBehaviour {
         // get the third person character ( this should never be null due to require component )
         m_Character = GetComponent<ThirdPersonCharacter>();
         m_Alchemist = GetComponent<AlchemistCharacter>();
-    }
+        spriteBoy = transform.FindChild("SpriteBoy").gameObject.GetComponent<Animator>();
+}
 
 
     private void Update() {
@@ -73,6 +74,8 @@ public class AlchemistUserControl : MonoBehaviour {
                     h = CrossPlatformInputManager.GetAxis("Vertical");
                     v = CrossPlatformInputManager.GetAxis("Horizontal");
                 }
+                spriteBoy.SetFloat("Horz", Mathf.Abs(h));
+                spriteBoy.SetFloat("Vert", Mathf.Abs(v));
                 bool crouch = false;
 
                 // calculate move direction to pass to character
