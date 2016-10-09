@@ -5,7 +5,7 @@ using System.Linq;
 
 public class LevelManager : MonoBehaviour {
 
-    public string[][] slotNames = new string[3][];
+    public string[][] slotNames = new string[2][];
 
     public List<Color> randomColors = new List<Color>();
 
@@ -26,9 +26,8 @@ public class LevelManager : MonoBehaviour {
     public AlchemistCharacter player;
 
     void Awake() {
-        slotNames[0] = new string[6] { "First1", "First2", "First3", "First4", "First5", "First6" };
-        slotNames[1] = new string[6] { "Second1", "Second2", "Second3", "Second4", "Second5", "Second6" };
-        slotNames[2] = new string[6] { "Third1", "Third2", "Third3", "Third4", "Third5", "Third6" };
+        slotNames[0] = new string[6] { "Flaming", "Crying", "Exploding", "Foaming", "Boiling", "Smoking" };
+        slotNames[1] = new string[6] { "Amalgama", "Tincture", "Congelation", "Calcination", "Sublimation", "Fermentation" };        
         
         starterReagents = GameObject.FindGameObjectsWithTag("Reagent").Cast<GameObject>().ToList();
         teacher = GameObject.FindGameObjectWithTag("Teacher").GetComponent<Teacher>();

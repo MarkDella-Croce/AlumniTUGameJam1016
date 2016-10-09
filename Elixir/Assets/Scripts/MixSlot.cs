@@ -65,8 +65,7 @@ public class MixSlot : MonoBehaviour {
     }
 
     public void changeReagent(Reagent newReagent) {
-        if (newReagent != null) {
-            Debug.Log("Changing to " + newReagent.color);
+        if (newReagent != null) {            
             currentReagent = newReagent;
             renderer.material.color = currentReagent.color;
         } else {

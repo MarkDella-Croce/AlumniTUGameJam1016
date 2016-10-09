@@ -8,9 +8,10 @@ public class Combine : MonoBehaviour {
     private GameObject combineTable;
 
     private List<MixSlot> mixSlots = new List<MixSlot>();
+    public List<GameObject> reagentSlots;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
        foreach (Transform child in combineTable.transform) {
             if (child.gameObject.tag == "Mix") {
                 mixSlots.Add(child.gameObject.GetComponent<MixSlot>());
@@ -29,11 +30,18 @@ public class Combine : MonoBehaviour {
         string mixedName = "";
         int currentSlot = 0;
         foreach(MixSlot mixSlot in mixSlots) {
-            if (mixSlot.currentReagent != null) {
-                //Debug.Log("Mixing: " + mixSlot.currentReagent.color + " and " + mixSlot.currentReagent.slotNames[currentSlot]);
+            if (mixSlot.currentReagent != null) {                
                 mixedColor += mixSlot.currentReagent.color;
                 mixedName = mixedName + " " + mixSlot.currentReagent.slotNames[currentSlot];
                 currentSlot++;
+                foreach (GameObject slot in reagentSlots) {
+                    MixSlot openSlot = slot.GetComponent<MixSlot>();
+                    if (openSlot.currentReagent == null) {
+                        openSlot.changeReagent(mixSlot.currentReagent);
+                        mixSlot.changeReagent(null);
+                        break;
+                    }
+                }
             }
         }
         mixedReagent.slotNames.Add(mixedName);
