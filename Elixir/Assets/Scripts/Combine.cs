@@ -36,9 +36,7 @@ public class Combine : MonoBehaviour {
                 currentSlot++;
             }
         }
-        Debug.Log("Final Name: " + mixedName);
         mixedReagent.slotNames.Add(mixedName);
-        Debug.Log("Final Color: " + mixedColor);
         mixedReagent.color = mixedColor;
         mixedReagent.isMixed = true;
         return mixedReagent;

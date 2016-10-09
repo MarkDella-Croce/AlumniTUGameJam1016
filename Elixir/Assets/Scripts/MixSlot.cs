@@ -22,18 +22,23 @@ public class MixSlot : MonoBehaviour {
     public bool canReceive;
     public bool canSend;
 
+    public float moveTimeLeft;
+    public float totalMoveTime;
+    private Vector3 currentDest;
+
+    
+
+    public float movementScale;
+    public float speed;
+
+
     // Use this for initialization
     void Start () {
         renderer = this.GetComponent<MeshRenderer>();
         if (renderer.material.color == Color.clear) {                    
             currentReagent = null;
-        }
-    }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+        }        
+    }	   
 
     void OnTriggerEnter(Collider other)
     {

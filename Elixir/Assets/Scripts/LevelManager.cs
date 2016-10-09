@@ -5,9 +5,9 @@ using System.Linq;
 
 public class LevelManager : MonoBehaviour {
 
-    public string[][] slotNames = new string[3][];    
+    public string[][] slotNames = new string[3][];
 
-    public List<Color> randomColors = new List<Color> { Color.red, Color.blue, Color.green };    
+    public List<Color> randomColors = new List<Color>();
 
     public int questionsPerTest;
     public int maxSlots;
@@ -20,6 +20,11 @@ public class LevelManager : MonoBehaviour {
 
     private List<Reagent> availableReagents = new List<Reagent>();
 
+    [SerializeField]
+    private MixSlot[] resultSlots;
+
+    public AlchemistCharacter player;
+
     void Awake() {
         slotNames[0] = new string[6] { "First1", "First2", "First3", "First4", "First5", "First6" };
         slotNames[1] = new string[6] { "Second1", "Second2", "Second3", "Second4", "Second5", "Second6" };
@@ -27,13 +32,14 @@ public class LevelManager : MonoBehaviour {
         
         starterReagents = GameObject.FindGameObjectsWithTag("Reagent").Cast<GameObject>().ToList();
         teacher = GameObject.FindGameObjectWithTag("Teacher").GetComponent<Teacher>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<AlchemistCharacter>();
         teacher.reagentSlots = starterReagents;
         Random.InitState((int)System.DateTime.Now.Ticks);
-        Debug.Log("count: " + starterReagents.Count);
     }
 
     // Use this for initialization
-    void Start () {        
+    void Start () {
+        randomColors = new List<Color> { Color.red, Color.blue, Color.green };
         for (int reagentNum = 0; reagentNum <= starterReagents.Count - 1; reagentNum++) {            
             Reagent newReagent = new Reagent();
             for (int nameSlot = 0; nameSlot < maxSlots; nameSlot++) {
@@ -50,25 +56,37 @@ public class LevelManager : MonoBehaviour {
         for (int i = 0; i < questionsPerTest; i++) {
             string newQuestion = "";    
             int questionSlots = Random.Range(2, maxSlots + 1);
-            List<Reagent> currentReagents = new List<Reagent>(availableReagents);
-            Debug.Log("Current Reagent count: " + currentReagents.Count);
-            Debug.Log("Question Number: " + i);
+            List<Reagent> currentReagents = new List<Reagent>(availableReagents);            
             for (int j = 0; j < questionSlots; j++) {
                 int randomReagent = Random.Range(0, currentReagents.Count);
-                Debug.Log("Current Reagent count: " + currentReagents.Count + " random reagent: " + randomReagent + " slot name: " + j);
                 newQuestion = newQuestion + " " + currentReagents[randomReagent].slotNames[j];
                 currentReagents.RemoveAt(randomReagent);
             }
-            teacher.testQuestions.Add(newQuestion);
+            if (teacher.testQuestions.Count != 0 && teacher.testQuestions[teacher.testQuestions.Count - 1] == newQuestion) {
+                i--;
+            } else {
+                teacher.testQuestions.Add(newQuestion);
+            }
         }
 
-        foreach (string question in teacher.testQuestions) {
+        /*foreach (string question in teacher.testQuestions) {
             Debug.Log("Question: " + question);
-        }
+        }*/
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
+
+    public void ResetLevel() {
+        Time.timeScale = 1f;
+        availableReagents = new List<Reagent>();
+        teacher.testQuestions = new List<string>();
+        player.ResetPlayer();
+        foreach (MixSlot slot in resultSlots) {
+            slot.changeReagent(null);
+        } 
+        Start();
+    }
 }
