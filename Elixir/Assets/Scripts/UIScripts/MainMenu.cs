@@ -16,4 +16,12 @@ public class MainMenu : MonoBehaviour {
     public void StartGame() {
         Application.LoadLevel("Level1");
     }
+
+	public void WelcomeScreen() {
+		Application.LoadLevel("Welcome_Screen");
+	}
+
+	public void Credits() {
+		Application.LoadLevel("Credits_Screen");
+	}
 }
